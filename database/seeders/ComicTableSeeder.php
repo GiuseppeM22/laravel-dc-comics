@@ -27,8 +27,8 @@ class ComicTableSeeder extends Seeder
            $newFumetto->series = $fumetto["series"];
            $newFumetto->sale_date = $fumetto["sale_date"];
            $newFumetto->type = $fumetto["type"];
-           $newFumetto->artists = $fumetto["artists"];
-           $newFumetto->writers = $fumetto["writers"];
+           $newFumetto->artists = implode(", ", $fumetto["artists"]);
+           $newFumetto->writers = implode(", ", $fumetto["writers"]);
 
            $newFumetto->save();
         }
