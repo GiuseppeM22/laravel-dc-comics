@@ -17,7 +17,7 @@ class PageController extends Controller
     {
         $fumetti = Comic::all();
 
-        return view("fumetti.index", compact("fumetti") );
+        return view("fumetto.index", compact("fumetti") );
     }
 
     /**
@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view("fumetti.create");
+        return view("fumetto.create");
     }
 
     /**
@@ -38,7 +38,19 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+           $data = $request->all();
+
+           $newFumetto = new Comic();
+           $newFumetto->title = $data["title"];
+           $newFumetto->description = $data["description"];
+           $newFumetto->thumb = $data["thumb"];
+           $newFumetto->price = $data["price"];
+           $newFumetto->series = $data["series"];
+           $newFumetto->sale_date = $data["sale_date"];
+           $newFumetto->type = $data["type"];
+           $newFumetto->save();
+
+           return redirect()->route('fumetto.index', $newFumetto->id);
     }
 
     /**
@@ -49,7 +61,7 @@ class PageController extends Controller
      */
     public function show(Comic $fumetto)
     {
-        return view("fumetti.show", compact("fumetto") );
+        return view("fumetto.show", compact("fumetto") );
     }
 
     /**
