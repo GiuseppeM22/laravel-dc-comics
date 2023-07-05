@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Comic;
 use App\Http\Controllers\Controller;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PageController extends Controller
 {
@@ -70,9 +71,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $fumetto)
     {
-        //
+        return view("fumetto.edit", compact("fumetto") );
     }
 
     /**
@@ -82,9 +83,22 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $fumetto)
     {
-        //
+           $data = $request->all();
+
+           $fumetto->title = $data["title"];
+           $fumetto->description = $data["description"];
+           $fumetto->thumb = $data["thumb"];
+           $fumetto->price = $data["price"];
+           $fumetto->series = $data["series"];
+           $fumetto->sale_date = $data["sale_date"];
+           $fumetto->type = $data["type"];
+           $fumetto->update();
+
+        return view("fumetto.show", compact("fumetto") );
+
+
     }
 
     /**
@@ -93,8 +107,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $fumetto)
     {
-        //
+        $fumetto->delete();
+        return redirect()->route('fumetto.index');
     }
 }

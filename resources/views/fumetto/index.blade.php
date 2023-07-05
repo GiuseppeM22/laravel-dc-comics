@@ -9,7 +9,15 @@
                 <a class="btn btn-primary" href="fumetto/create">Aggiungi un nuovo prodotto</a>
             </div>
             @foreach ($fumetti as $fumetto)
-                 <h1><a href="{{ route("fumetto.show", $fumetto->id) }}">{{$fumetto->title}}</a></h1>
+            <div class="d-flex align-items-center">
+                <h1><a href="{{ route("fumetto.show", $fumetto->id) }}">{{$fumetto->title}}</a></h1>
+                <a class="btn btn-primary ms-3" href="{{ route("fumetto.edit", $fumetto->id) }}">Modifica</a>
+                <form action="{{route("fumetto.destroy", $fumetto)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-primary ms-3">Rimuovi</button>
+                </form>
+            </div>
             @endforeach
         </div>
     </div>
