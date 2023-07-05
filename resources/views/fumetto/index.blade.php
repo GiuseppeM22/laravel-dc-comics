@@ -12,15 +12,13 @@
             <div class="d-flex align-items-center">
                 <h1><a href="{{ route("fumetto.show", $fumetto->id) }}">{{$fumetto->title}}</a></h1>
                 <a class="btn btn-primary ms-3" href="{{ route("fumetto.edit", $fumetto->id) }}">Modifica</a>
-                <form action="{{route("fumetto.destroy", $fumetto)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-primary ms-3">Rimuovi</button>
-                </form>
+               
             </div>
             @endforeach
         </div>
     </div>
+
+   
 
 </div>
 @endsection
