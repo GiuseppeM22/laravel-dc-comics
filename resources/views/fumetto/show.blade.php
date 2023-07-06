@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="d-flex p-4">
     <div class="row g-4">
         <div class="col">

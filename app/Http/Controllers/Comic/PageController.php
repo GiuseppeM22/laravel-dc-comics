@@ -39,19 +39,30 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-           $data = $request->all();
 
-           $newFumetto = new Comic();
-           $newFumetto->title = $data["title"];
-           $newFumetto->description = $data["description"];
-           $newFumetto->thumb = $data["thumb"];
-           $newFumetto->price = $data["price"];
-           $newFumetto->series = $data["series"];
-           $newFumetto->sale_date = $data["sale_date"];
-           $newFumetto->type = $data["type"];
-           $newFumetto->save();
+            $request->validate([
+                "title" => "required|min:5|max:10",
+                "thumb" => "required|min:5",
+                "price" => "required|min:4|max:6",
+                "series" => "required|min:3|max:100",
+                "sale_date" => "required",
+                "type" => "required"
 
-           return redirect()->route('fumetto.index', $newFumetto->id);
+            ]);
+
+            $data = $request->all();
+
+            $newFumetto = new Comic();
+            $newFumetto->title = $data["title"];
+            $newFumetto->description = $data["description"];
+            $newFumetto->thumb = $data["thumb"];
+            $newFumetto->price = $data["price"];
+            $newFumetto->series = $data["series"];
+            $newFumetto->sale_date = $data["sale_date"];
+            $newFumetto->type = $data["type"];
+            $newFumetto->save();
+
+            return redirect()->route('fumetto.index', $newFumetto->id);
     }
 
     /**
@@ -85,16 +96,17 @@ class PageController extends Controller
      */
     public function update(Request $request, Comic $fumetto)
     {
-           $data = $request->all();
+            
+            $data = $request->all();
 
-           $fumetto->title = $data["title"];
-           $fumetto->description = $data["description"];
-           $fumetto->thumb = $data["thumb"];
-           $fumetto->price = $data["price"];
-           $fumetto->series = $data["series"];
-           $fumetto->sale_date = $data["sale_date"];
-           $fumetto->type = $data["type"];
-           $fumetto->update();
+            $fumetto->title = $data["title"];
+            $fumetto->description = $data["description"];
+            $fumetto->thumb = $data["thumb"];
+            $fumetto->price = $data["price"];
+            $fumetto->series = $data["series"];
+            $fumetto->sale_date = $data["sale_date"];
+            $fumetto->type = $data["type"];
+            $fumetto->update();
 
         return view("fumetto.show", compact("fumetto") );
 
