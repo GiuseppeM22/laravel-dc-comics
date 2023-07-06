@@ -2,8 +2,17 @@
 
 @section('content')
 <div class="container my-3">
-    <h1>Create Fumetto</h1>
+    <h1>Modificare Fumetto</h1>
     <div class="row g-4 py-4">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="col">
             <form action="{{ route('fumetto.update', $fumetto) }}" method="post">
                 @csrf

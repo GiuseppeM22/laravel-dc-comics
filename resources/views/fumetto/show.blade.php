@@ -5,7 +5,7 @@
 <div class="d-flex p-4">
     <div class="row g-4">
         <div class="col">
-            <a href="{{ route("home") }}">Torna ai fumetti</a>
+            <a class="btn btn-primary ms-3" href="{{ route("home") }}">Torna ai fumetti</a>
         </div>
     </div>
     <form action="{{route("fumetto.destroy", $fumetto)}}" method="POST">
@@ -15,7 +15,7 @@
     </form>
 </div>
 
-<div class="container my-3">
+<div class="container my-3 show_img">
     <h1>Dettagli: {{$fumetto->title}}</h1>
     <img src="{{$fumetto->thumb}}" alt="">
 </div>

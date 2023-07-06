@@ -44,6 +44,7 @@ header img.logo {
     flex-direction: column;
     margin: 20px;
     justify-content: space-between;
+    background-color: #222;
 }
 
 .card img {
@@ -60,4 +61,8 @@ header img.logo {
 .boxed {
     max-width: 80%;
     margin: auto;
+}
+
+.show_img img{
+    max-width: 300px;
 }
