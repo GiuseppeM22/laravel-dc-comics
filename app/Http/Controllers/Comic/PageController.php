@@ -87,13 +87,7 @@ class PageController extends Controller
             $data = $this->validateProduct( $request->all() );
 
             $newFumetto = new Comic();
-            $newFumetto->title = $data["title"];
-            $newFumetto->description = $data["description"];
-            $newFumetto->thumb = $data["thumb"];
-            $newFumetto->price = $data["price"];
-            $newFumetto->series = $data["series"];
-            $newFumetto->sale_date = $data["sale_date"];
-            $newFumetto->type = $data["type"];
+            $newFumetto->fill($data);
             $newFumetto->save();
 
             return redirect()->route('fumetto.index', $newFumetto->id);
@@ -132,14 +126,7 @@ class PageController extends Controller
     {
             
             $data = $this->validateProduct( $request->all() );
-
-            $fumetto->title = $data["title"];
-            $fumetto->description = $data["description"];
-            $fumetto->thumb = $data["thumb"];
-            $fumetto->price = $data["price"];
-            $fumetto->series = $data["series"];
-            $fumetto->sale_date = $data["sale_date"];
-            $fumetto->type = $data["type"];
+            $fumetto->fill($data);
             $fumetto->update();
 
         return view("fumetto.show", compact("fumetto") );
