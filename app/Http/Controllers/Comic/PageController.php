@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Comic;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreComicRequest;
+use App\Http\Requests\UpdateComicRequest;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -34,36 +36,36 @@ class PageController extends Controller
     //ci permette di creare una funzione riutilizzabile per quanto riguarda gli errori senza copia ed incolla
     //inoltre ci permette di personalizzare il messaggio di errore.
     //ricordarsi tramite lo use sopra di includere il validator
-    private function validateProduct($data) {
-        $validator = Validator::make($data, [
-            "title" => "required|min:5|max:100",
-            "thumb" => "required|min:5",
-            "price" => "required|min:4|max:6",
-            "description" => "nullable",
-            "series" => "required|min:3|max:100",
-            "sale_date" => "required",
-            "type" => "required"
-        ], [
+    // private function validateProduct($data) {
+    //     $validator = Validator::make($data, [
+    //         "title" => "required|min:5|max:100",
+    //         "thumb" => "required|min:5",
+    //         "price" => "required|min:4|max:6",
+    //         "description" => "nullable",
+    //         "series" => "required|min:3|max:100",
+    //         "sale_date" => "required",
+    //         "type" => "required"
+    //     ], [
 
-            "title.required" => "Il titolo è obbligatorio",
-            "title.min" => "Il titolo deve essere almeno di :min caratteri",
-            "title.max" => "Il titolo deve essere massimo di :max caratteri",
-            "thumb.required" => "Il percorso è obbligatorio",
-            "thumb.min" => "Il percorso deve essere almeno di :min caratteri",
-            "price.required" => "Il prezzo è obbligatorio",
-            "price.min" => "Il prezzo deve essere almeno di :min caratteri",
-            "price.max" => "Il prezzo deve essere almeno di :max caratteri",
-            "description.required" => "la descrizione è obbligatoria",
-            "series.required" => "la serie è obbligatoria",
-            "series.min" => "la serie deve essere almeno di :min caratteri",
-            "series.max" => "la serie deve essere almeno di :max caratteri",
-            "sale_date.required" => "la data è obbligatoria",
-            "type.required" => "la tipologia è obbligatoria",
+    //         "title.required" => "Il titolo è obbligatorio",
+    //         "title.min" => "Il titolo deve essere almeno di :min caratteri",
+    //         "title.max" => "Il titolo deve essere massimo di :max caratteri",
+    //         "thumb.required" => "Il percorso è obbligatorio",
+    //         "thumb.min" => "Il percorso deve essere almeno di :min caratteri",
+    //         "price.required" => "Il prezzo è obbligatorio",
+    //         "price.min" => "Il prezzo deve essere almeno di :min caratteri",
+    //         "price.max" => "Il prezzo deve essere almeno di :max caratteri",
+    //         "description.required" => "la descrizione è obbligatoria",
+    //         "series.required" => "la serie è obbligatoria",
+    //         "series.min" => "la serie deve essere almeno di :min caratteri",
+    //         "series.max" => "la serie deve essere almeno di :max caratteri",
+    //         "sale_date.required" => "la data è obbligatoria",
+    //         "type.required" => "la tipologia è obbligatoria",
 
-        ])->validate();
+    //     ])->validate();
 
-        return $validator;
-    }
+    //     return $validator;
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -71,7 +73,7 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
 
             // $request->validate([
@@ -84,7 +86,7 @@ class PageController extends Controller
 
             // ]);
 
-            $data = $this->validateProduct( $request->all() );
+            $data = $request->validated();
 
             $newFumetto = new Comic();
             $newFumetto->fill($data);
@@ -122,10 +124,10 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comic $fumetto)
+    public function update(UpdateComicRequest $request, Comic $fumetto)
     {
             
-            $data = $this->validateProduct( $request->all() );
+            $data = $request->validated();
             $fumetto->fill($data);
             $fumetto->update();
 
